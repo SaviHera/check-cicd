@@ -1,4 +1,4 @@
-name: Deploy to Firebase Hosting
+name: Deploy to Firebase (Hosting + Functions)
 
 on:
   push:
@@ -23,26 +23,31 @@ jobs:
       - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
-          node-version: '20'
+          node-version: '22'
           cache: 'npm'
 
-      - name: Install dependencies
+      # Install and build frontend
+      - name: Install frontend dependencies
         run: npm ci
 
-      - name: Build project
+      - name: Build frontend
         run: npm run build
 
-      # Deploy to production (main branch only)
-      - name: Deploy to Production
+      # Install functions dependencies
+      - name: Install functions dependencies
+        run: cd functions && npm ci
+
+      # Deploy to production (main branch only) - Hosting + Functions
+      - name: Deploy to Production (Hosting + Functions)
         if: github.event_name == 'push' && github.ref == 'refs/heads/main'
         uses: w9jds/firebase-action@master
         with:
-          args: deploy --only hosting
+          args: deploy --only hosting,functions
         env:
           FIREBASE_TOKEN: ${{ secrets.FIREBASE_TOKEN }}
 
-      # Deploy preview for Pull Requests
-      - name: Deploy PR Preview
+      # Deploy preview for Pull Requests (Hosting only - functions don't have preview channels)
+      - name: Deploy PR Preview (Hosting)
         if: github.event_name == 'pull_request'
         uses: FirebaseExtended/action-hosting-deploy@v0
         with:
