@@ -29,7 +29,7 @@ function App() {
         <div className="status-grid">
           <div className="status-card">
             <div className="status-icon">✅</div>
-            <h3>Build Test Test Test</h3>
+            <h3>Build okok NOT OKOK</h3>
             <p>Vite + React</p>
           </div>
           <div className="status-card">
