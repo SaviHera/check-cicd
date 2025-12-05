@@ -62,7 +62,7 @@ function App() {
           <div className="status-card">
             <div className="status-icon">⚡</div>
             <h3>Backend</h3>
-            <p>Firebase Functions</p>
+            <p>Firebase $$$$$ $$$$ Functions</p>
           </div>
           <div className="status-card">
             <div className="status-icon">🔄</div>
